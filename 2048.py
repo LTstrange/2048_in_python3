@@ -110,20 +110,24 @@ def final_operate():#翻译操作符为具体操作函数(finished
             field = Fl2u(field)
             break
         else:
-            print('please input u,d,l,r')
+            print('please input u,d,l,r\nmeans up,down,left,right')
             continue
 
 restart()
 print_screen()
-#while True:
-    num_zero = 0
+while True:
+    final_operate()
+    field = add_add(field)
+    print_screen()
+    zero_number = 0
     for each in field:
         zero_number += field.count(0)
-    if zero_number = 0:
-        break
-final_operate()
-field = add_add(field)
-print_screen()
-final_operate()
-field = add_add(field)
-print_screen()
+    if zero_number != 0:
+        print('game over')
+        ope = input('do you want play again?')
+        if ope == 'y':
+            restart()
+            print_screen()
+            continue
+        else:
+            break
