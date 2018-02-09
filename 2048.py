@@ -2,11 +2,14 @@ import random
 
 field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 score = 0
-def restart():
+
+def restart():#重置游戏(finished
     global field
     field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    field = add_add(field)
+    field = add_add(field)
 
-def add_number():#随机选择添加数字
+def add_number():#随机选择添加数字(finished
     number_type = random.randint(0,3)
     if number_type == 0:
         add_num = 4
@@ -14,7 +17,7 @@ def add_number():#随机选择添加数字
         add_num = 2
     return add_num
 
-def add_add(obj,x_max=3,y_max=3):#添加数字
+def add_add(obj,x_max=3,y_max=3):#添加数字(finished
     zero_location =[]
     for y_ind,y_obj in enumerate(obj):
         for x_ind,x_obj in enumerate(y_obj):
@@ -24,7 +27,7 @@ def add_add(obj,x_max=3,y_max=3):#添加数字
     obj[zero_location[location_ind][0]][zero_location[location_ind][1]] = add_number()
     return obj
 
-def print_screen():#打印屏幕
+def print_screen():#打印屏幕(finished
     global field
     global score
     print('--------------------')
@@ -34,14 +37,13 @@ def print_screen():#打印屏幕
     print(field[2])
     print(field[3])
 
-def operates():#决定输入操作
+def operates():#决定输入操作(finished
     operate = input('whats your operate:')
     return operate
 
-def leftward(obj):#使field向左滑动
+def leftward(obj):#使field向左滑动(finished
     global score
     for ind,y_obj in enumerate(obj):
-        print(y_obj)
         num_zero = y_obj.count(0)
         for i in range(0,num_zero):
             obj[ind].remove(0)
@@ -70,25 +72,20 @@ def leftward(obj):#使field向左滑动
                     obj[ind][3] = 0
     return obj
 
-def Fl2r(obj):#转换field方向（左到右）
+def Fl2r(obj):#转换field方向（左到右）(finished
     for ind,y_obj in enumerate(obj):
-        obj[ind] = y_obj.reverse()
+        y_obj.reverse()
+        obj[ind] = y_obj
     return obj
 
-def Fl2u(obj):#转换field方向（左到上）
+def Fl2u(obj):#转换field方向（左到上）(finished
     temp = list(zip(obj[0],obj[1],obj[2],obj[3]))
     obj = []
     for each in temp:
         obj.extend([list(each)])
     return obj
         
-def restart():
-    global field
-    field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    field = add_add(field)
-    field = add_add(field)
-
-def final_operate():
+def final_operate():#翻译操作符为具体操作函数(finished
     global field
     while True:
         operate = operates()
@@ -116,14 +113,14 @@ def final_operate():
             print('please input u,d,l,r')
             continue
 
-#while True:
 restart()
 print_screen()
-#    num_zero = 0
-#    for each in field:
-#        zero_number += field.count(0)
-#    if zero_number = 0:
-#        break
+#while True:
+    num_zero = 0
+    for each in field:
+        zero_number += field.count(0)
+    if zero_number = 0:
+        break
 final_operate()
 field = add_add(field)
 print_screen()
