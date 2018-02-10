@@ -35,10 +35,10 @@ def print_screen():#打印屏幕(finished
     global score
     print('--------------------')
     print('your score is:',score)
-    print(field[0])
-    print(field[1])
-    print(field[2])
-    print(field[3])
+    print(field[0][0],field[0][1],field[0][2],field[0][3])
+    print(field[1][0],field[1][1],field[1][2],field[1][3])
+    print(field[2][0],field[2][1],field[2][2],field[2][3])
+    print(field[3][0],field[3][1],field[3][2],field[3][3])
 
 def operates():#决定输入操作(finished
     operate = input('whats your operate:')
@@ -114,7 +114,7 @@ def final_operate():#翻译操作符为具体操作函数(finished
             print('please input u,d,l,r\nmeans up,down,left,right')
             continue
 
-def 2048():
+def __main__():
     global field
     restart()
     print_screen()
@@ -135,4 +135,4 @@ def 2048():
             else:
                 break
 
-2048()
+__main__()
