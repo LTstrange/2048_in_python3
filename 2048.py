@@ -3,14 +3,12 @@ import random
 def version():
     print('version:1.0.0')
 
-field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-score = 0
-
 def restart():#重置游戏(finished
-    global field
+    score = 0
     field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     field = add_add(field)
     field = add_add(field)
+    return field,score
 
 def add_number():#随机选择添加数字(finished
     number_type = random.randint(0,3)
@@ -30,9 +28,7 @@ def add_add(obj,x_max=3,y_max=3):#添加数字(finished
     obj[zero_location[location_ind][0]][zero_location[location_ind][1]] = add_number()
     return obj
 
-def print_screen():#打印屏幕(finished
-    global field
-    global score
+def print_screen(field,score):#打印屏幕(finished
     print('--------------------')
     print('your score is:',score)
     print(field[0][0],field[0][1],field[0][2],field[0][3])
@@ -44,8 +40,7 @@ def operates():#决定输入操作(finished
     operate = input('whats your operate:')
     return operate
 
-def leftward(obj):#使field向左滑动(finished
-    global score
+def leftward(obj,score):#使field向左滑动(finished
     for ind,y_obj in enumerate(obj):
         num_zero = y_obj.count(0)
         for i in range(0,num_zero):
@@ -71,7 +66,7 @@ def leftward(obj):#使field向左滑动(finished
             obj[ind][2] = y_obj[2] + y_obj[3]
             score += obj[ind][2]
             obj[ind][3] = 0
-    return obj
+    return obj,score
 
 def Fl2r(obj):#转换field方向（左到右）(finished
     for ind,y_obj in enumerate(obj):
@@ -86,42 +81,41 @@ def Fl2u(obj):#转换field方向（左到上）(finished
         obj.extend([list(each)])
     return obj
         
-def final_operate():#翻译操作符为具体操作函数(finished
-    global field
+def final_operate(field,score):#翻译操作符为具体操作函数(finished
     while True:
         operate = operates()
         if operate == 'l':
-            field = leftward(field)
+            field,score = leftward(field,score)
             break
         elif operate == 'u':
             field = Fl2u(field)
-            field = leftward(field)
+            field,score = leftward(field,score)
             field = Fl2u(field)
             break
         elif operate == 'r':
             field = Fl2r(field)
-            field = leftward(field)
+            field,score = leftward(field,score)
             field = Fl2r(field)
             break
         elif operate == 'd':
             field = Fl2u(field)
             field = Fl2r(field)
-            field = leftward(field)
+            field,score = leftward(field,score)
             field = Fl2r(field)
             field = Fl2u(field)
             break
         else:
             print('please input u,d,l,r\nmeans up,down,left,right')
             continue
+    return field,score
 
-def __main__():
-    global field
-    restart()
-    print_screen()
+def __main__(key=0):
+    field,score = restart()
+    print_screen(field,score)
     while True:
-        final_operate()
+        field,score = final_operate(field,score)
         field = add_add(field)
-        print_screen()
+        print_screen(field,score)
         zero_number = 0
         for each in field:
             zero_number += field.count(0)
@@ -129,8 +123,8 @@ def __main__():
             print('game over')
             ope = input('do you want play again?')
             if ope == 'y':
-                restart()
-                print_screen()
+                field,score = restart()
+                print_screen(field,score)
                 continue
             else:
                 break
