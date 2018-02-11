@@ -4,3 +4,4 @@ I try to make a program of 2048 in python, Trying to complete it.
 方便的调用主函数，可以选择是否打印屏幕，可以自己单独运行体验游戏，也可以在别的程序当中运行，嵌入你的程序。
 
 还在开发当中，V1.0.0版本前只能单独运行。
+    改进了程序，消除了global语句。为脚本化作好铺垫。
