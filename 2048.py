@@ -31,10 +31,10 @@ def add_add(obj,x_max=3,y_max=3):#添加数字(finished
 def print_screen(field,score):#打印屏幕(finished
     print('--------------------')
     print('your score is:',score)
-    print(field[0][0],field[0][1],field[0][2],field[0][3])
-    print(field[1][0],field[1][1],field[1][2],field[1][3])
-    print(field[2][0],field[2][1],field[2][2],field[2][3])
-    print(field[3][0],field[3][1],field[3][2],field[3][3])
+    print('%d\t%d\t%d\t%d'%(field[0][0],field[0][1],field[0][2],field[0][3]))
+    print('%d\t%d\t%d\t%d'%(field[1][0],field[1][1],field[1][2],field[1][3]))
+    print('%d\t%d\t%d\t%d'%(field[2][0],field[2][1],field[2][2],field[2][3]))
+    print('%d\t%d\t%d\t%d'%(field[3][0],field[3][1],field[3][2],field[3][3]))
 
 def operates():#决定输入操作(finished
     operate = input('whats your operate:')
@@ -52,17 +52,12 @@ def leftward(obj,score):#使field向左滑动(finished
             obj[ind][1] = obj[ind][2]
             obj[ind][2] = obj[ind][3]
             obj[ind][3] = 0
-            if y_obj[1] == y_obj[2]:
-                obj[ind][1] = y_obj[1] +y_obj[2]
-                score += obj[ind][1]
-                obj[ind][2] = obj[ind][3]
-                obj[ind][3] = 0
-        elif y_obj[1] == y_obj[2]:
-            obj[ind][1] = y_obj[1] + y_obj[2]
+        if y_obj[1] == y_obj[2]:
+            obj[ind][1] = y_obj[1] +y_obj[2]
             score += obj[ind][1]
-            obj[ind][2] = y_obj[3]
+            obj[ind][2] = obj[ind][3]
             obj[ind][3] = 0
-        elif y_obj[2] == y_obj[3]:
+        if y_obj[2] == y_obj[3]:
             obj[ind][2] = y_obj[2] + y_obj[3]
             score += obj[ind][2]
             obj[ind][3] = 0
@@ -84,20 +79,20 @@ def Fl2u(obj):#转换field方向（左到上）(finished
 def final_operate(field,score):#翻译操作符为具体操作函数(finished
     while True:
         operate = operates()
-        if operate == 'l':
+        if operate == 'a':
             field,score = leftward(field,score)
             break
-        elif operate == 'u':
+        elif operate == 'w':
             field = Fl2u(field)
             field,score = leftward(field,score)
             field = Fl2u(field)
-            break
-        elif operate == 'r':
-            field = Fl2r(field)
-            field,score = leftward(field,score)
-            field = Fl2r(field)
             break
         elif operate == 'd':
+            field = Fl2r(field)
+            field,score = leftward(field,score)
+            field = Fl2r(field)
+            break
+        elif operate == 's':
             field = Fl2u(field)
             field = Fl2r(field)
             field,score = leftward(field,score)
@@ -105,7 +100,7 @@ def final_operate(field,score):#翻译操作符为具体操作函数(finished
             field = Fl2u(field)
             break
         else:
-            print('please input u,d,l,r\nmeans up,down,left,right')
+            print('please input w,s,a,d\nmeans up,down,left,right')
             continue
     return field,score
 
