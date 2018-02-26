@@ -4,5 +4,10 @@
 
 方便的调用主函数，可以选择是否打印屏幕，可以自己单独运行体验游戏，也可以在别的程序当中运行，嵌入你的程序。
 
-还在开发当中，V1.0.0版本前只能单独运行。
-    改进了程序，消除了global语句。为脚本化作好铺垫。
+已经可以作为模块被其他程序导入，目前版本v1.1.0，当前版本依旧未完善，尚不能作为脚本，且有bug存在。
+
+The program of 2048 in python. Input your operate,and return the screen. 
+
+Easy to call the main function, you can choose whether to print the screen, you can run your own to experience games, you can run among other programs, embedded in your program.
+
+It can be import as a module by other programs. The current version is V1.1.0, the current version is still incomplete, can not be used as a script, and there also have a bug.
