@@ -46,9 +46,10 @@ def operates():#决定输入操作(finished
 def leftward(obj,score):#使field向左滑动(finished
     for ind,y_obj in enumerate(obj):
         num_zero = y_obj.count(0)
-        for i in range(0,num_zero):
+        for i in range(0,num_zero):#使数字全部滑到左侧，怀疑bug可能在此处
             obj[ind].remove(0)
             obj[ind].append(0)
+        #之后三个if都是使数字逐级相加合并，怀疑bug可能在此处
         if y_obj[0] == y_obj[1]:
             obj[ind][0] = y_obj[0] + y_obj[1]
             score += obj[ind][0]
@@ -107,23 +108,16 @@ def final_operate(field,score):#翻译操作符为具体操作函数(finished
             continue
     return field,score
 
-def cheak(field):
-    for i in range(4):
-        for i in range(4):
-            if i<3 and field[i][j] == field[i+1][j]:
-                return False
-        for j in range(4):
-            if j<3 and field[i][j] == field[i][j+1]:
-                return False
-
-def main(key=0):
+def main(key=0):#主函数
     field,score = restart()
     print_screen(field,score)
     while True:
         tmp = copy.deepcopy(field)
         field,score = final_operate(field,score)
         if tmp != field:
-            field = add_add(field)
+            temp =copy.deepcopy(field)
+            #此处我怀疑为添加的数字将正常数字替换掉而导致bug
+            field = add_add(temp)
             print_screen(field,score)
             zero_number = 0
         else:
