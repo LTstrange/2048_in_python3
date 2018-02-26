@@ -1,11 +1,14 @@
+#!/user/bin/env python
+# coding=utf-8
 import random
+import copy
 
 def version():
-    print('version:1.0.0')
+    print('version:1.1.0')
 
 def restart():#重置游戏(finished
     score = 0
-    field=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    field= [[0 for i in range(4)] for j in range(4)]
     field = add_add(field)
     field = add_add(field)
     return field,score
@@ -104,16 +107,29 @@ def final_operate(field,score):#翻译操作符为具体操作函数(finished
             continue
     return field,score
 
+def cheak(field):
+    for i in range(4):
+        for i in range(4):
+            if i<3 and field[i][j] == field[i+1][j]:
+                return False
+        for j in range(4):
+            if j<3 and field[i][j] == field[i][j+1]:
+                return False
+
 def __main__(key=0):
     field,score = restart()
     print_screen(field,score)
     while True:
+        tmp = copy.deepcopy(field)
         field,score = final_operate(field,score)
-        field = add_add(field)
-        print_screen(field,score)
-        zero_number = 0
+        if tmp != field:
+            field = add_add(field)
+            print_screen(field,score)
+            zero_number = 0
+        else:
+            print('This move has no efficient')
         for each in field:
-            zero_number += field.count(0)
+            zero_number = field.count(0)
         if zero_number != 0:
             print('game over')
             ope = input('do you want play again?')
