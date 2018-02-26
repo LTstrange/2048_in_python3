@@ -116,7 +116,7 @@ def cheak(field):
             if j<3 and field[i][j] == field[i][j+1]:
                 return False
 
-def __main__(key=0):
+def main(key=0):
     field,score = restart()
     print_screen(field,score)
     while True:
@@ -140,4 +140,5 @@ def __main__(key=0):
             else:
                 break
 
-__main__()
+if __name__ == '__main__':
+    main()
