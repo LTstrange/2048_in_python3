@@ -115,7 +115,6 @@ def move(ope,nfield,score):
     return nfield,score
 
 def check(field):
-    
     num = 0
     for each in field:
         for x in each:
@@ -124,21 +123,22 @@ def check(field):
     if num != 0:
         return [True,True]
     else:
-        
         l =4
         nfield = copy.deepcopy(field)
         for i in range(4):
-            res,n = move(i,field,0)
+            res = move(i,field)
             if res != field:
                 return [True,False]
             else:
                 l -= 1
-        
         if l == 0:
             return [False,False]
 
-def game(ope,field,score):
-    
+def main(ope,field,score):
+    nfield = copy.deepcopy(field)
+    field,score = move(ope,field,score)
+    if field == nfield:
+        return [True,field],score
     flag = check(field)
     if flag[0]:
         if flag[1]:
@@ -149,11 +149,6 @@ def game(ope,field,score):
             return [True,field],score
     else:
         return [False,field],score
-    nfield = copy.deepcopy(field)
-    field,score = move(ope,field,score)
-    if field == nfield:
-        return [True,field],score
-    
 
 if __name__ == '__main__':
     res,score = init()
@@ -161,7 +156,7 @@ if __name__ == '__main__':
         if res[0]:
             print_screen(res[1],score)
             ope = in_ope(res[1])
-            res,score = game(ope,res[1],score)
+            res,score = main(ope,res[1],score)
         else:
             print('lose')
             break
